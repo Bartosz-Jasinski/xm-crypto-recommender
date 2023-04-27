@@ -1,8 +1,10 @@
 package com.epam.recommendationservice.controller;
 
+import com.epam.recommendationservice.converter.CryptoListToSummaryConverter;
 import com.epam.recommendationservice.converter.CryptoSymbolToFileConverter;
 import com.epam.recommendationservice.model.Crypto;
-import com.epam.recommendationservice.parser.CsvFileParser;
+import com.epam.recommendationservice.model.CryptoSummary;
+import com.epam.recommendationservice.parser.CryptoCsvFileParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,14 +18,17 @@ import java.util.List;
 @RequestMapping("/api/recommendations")
 public class RecommenderController {
     @Autowired
-    private CsvFileParser csvFileParser;
+    private CryptoCsvFileParser cryptoCsvFileParser;
     @Autowired
     private CryptoSymbolToFileConverter cryptoSymbolToFileConverter;
+    @Autowired
+    private CryptoListToSummaryConverter cryptoListToSummaryConverter;
 
     @GetMapping("/{symbol}")
-    public List<Crypto> getCryptoPrices(@PathVariable(name = "symbol") String symbol) {
+    public CryptoSummary getCryptoSummary(@PathVariable(name = "symbol") String symbol) {
         File cryptoDataFile = cryptoSymbolToFileConverter.convert(symbol);
-        return csvFileParser.parse(cryptoDataFile);
+        List<Crypto> cryptoHistoryList = cryptoCsvFileParser.parse(cryptoDataFile);
+        return cryptoListToSummaryConverter.convert(cryptoHistoryList);
     }
 
 }

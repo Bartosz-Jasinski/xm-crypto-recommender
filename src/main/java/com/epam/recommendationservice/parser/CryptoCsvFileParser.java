@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class CsvFileParser implements FileParser {
+public class CryptoCsvFileParser implements FileParser {
 
     @Override
     public List<Crypto> parse(File file) {
