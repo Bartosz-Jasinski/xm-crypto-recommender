@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.epam</groupId>
-	<artifactId>recommendation-serice</artifactId>
+	<artifactId>recommendation-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Crypto Recommender</name>
 	<description>Spring Boot project for XM interview</description>

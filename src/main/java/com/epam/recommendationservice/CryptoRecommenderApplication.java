@@ -1,4 +1,4 @@
-package com.epam.recommendationserice;
+package com.epam.recommendationservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
