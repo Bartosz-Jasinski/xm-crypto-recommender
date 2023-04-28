@@ -9,6 +9,10 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+/**
+ * Represents single row from CSV file.
+ * Contains information about crypto price measurement.
+ */
 @Getter
 @Setter
 public class Crypto {

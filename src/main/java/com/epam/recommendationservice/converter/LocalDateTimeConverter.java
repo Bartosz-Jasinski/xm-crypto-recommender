@@ -8,6 +8,9 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.TimeZone;
 
+/**
+ * Converter that converts timestamp (fe. 1641009600000) into a {@link LocalDateTime}
+ */
 public class LocalDateTimeConverter extends AbstractBeanField<LocalDateTime, String> {
     @Override
     protected Object convert(String s) throws CsvDataTypeMismatchException, CsvConstraintViolationException {

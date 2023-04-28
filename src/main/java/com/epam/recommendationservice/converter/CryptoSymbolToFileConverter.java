@@ -7,6 +7,9 @@ import java.net.URISyntaxException;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Converter that uses crypto symbol to find and retrieve a corresponding data file from a resources.
+ */
 @Service
 public class CryptoSymbolToFileConverter {
     //TODO: move allowed cryptos validation to another class and to RecommenderController

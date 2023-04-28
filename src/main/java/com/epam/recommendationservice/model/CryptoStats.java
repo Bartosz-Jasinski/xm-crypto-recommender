@@ -1,19 +1,30 @@
 package com.epam.recommendationservice.model;
 
+import com.epam.recommendationservice.converter.CryptoListToStatsConverter;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+/**
+ * Contains a statistics created from a crypto measurements.
+ */
 @Getter
 @Setter
-public class CryptoSummary {
+public class CryptoStats {
     private Crypto oldest;
     private Crypto newest;
     private Crypto max;
     private Crypto min;
 
+    /**
+     * Tries to update all of this class fields, based on the values from a single measurement.
+     * This method is used inside {@link CryptoListToStatsConverter},
+     * to create stats about measured crypto prices.
+     *
+     * @param crypto - contains single measurement from a data file
+     */
     public void update(Crypto crypto) {
         updateOldest(crypto);
         updateNewest(crypto);
