@@ -1,5 +1,6 @@
 package com.epam.recommendationservice.controller;
 
+import com.epam.recommendationservice.comparator.DescendedNormalizedCryptoComparator;
 import com.epam.recommendationservice.converter.CryptoListToStatsConverter;
 import com.epam.recommendationservice.converter.CryptoSymbolToFileConverter;
 import com.epam.recommendationservice.model.CryptoNormalized;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.File;
-import java.util.Comparator;
 import java.util.TreeSet;
 
 @RestController
@@ -50,12 +50,5 @@ public class RecommenderController {
         symbolToCryptoSummary.forEach((key, value) -> normalizedCryptosSorted.add(new CryptoNormalized(key, value.getNormalizedRange())));
 
         return normalizedCryptosSorted;
-    }
-}
-
-class DescendedNormalizedCryptoComparator implements Comparator<CryptoNormalized> {
-    @Override
-    public int compare(CryptoNormalized cs1, CryptoNormalized cs2) {
-        return -(cs1.getNormalizedValue()).compareTo(cs2.getNormalizedValue());
     }
 }
