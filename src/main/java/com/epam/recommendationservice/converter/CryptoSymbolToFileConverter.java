@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CryptoSymbolToFileConverter {
@@ -23,5 +24,11 @@ public class CryptoSymbolToFileConverter {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public Set<File> convertAllFiles() {
+        return ALLOWED_CRYPTOS.stream()
+                .map(this::convert)
+                .collect(Collectors.toSet());
     }
 }

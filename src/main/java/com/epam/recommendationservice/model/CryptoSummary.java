@@ -3,6 +3,9 @@ package com.epam.recommendationservice.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Getter
 @Setter
 public class CryptoSummary {
@@ -40,5 +43,10 @@ public class CryptoSummary {
         if (min == null || crypto.getPriceUsd().compareTo(min.getPriceUsd()) < 0) {
             min = crypto;
         }
+    }
+
+    public BigDecimal getNormalizedRange() {
+        BigDecimal subtracted = max.getPriceUsd().subtract(min.getPriceUsd());
+        return subtracted.divide(min.getPriceUsd(), 2, RoundingMode.HALF_UP);
     }
 }
