@@ -5,16 +5,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST)
 public class CryptoDataFileMissingException extends RuntimeException {
-    public CryptoDataFileMissingException() {
-        super();
-    }
     public CryptoDataFileMissingException(String message, Throwable cause) {
         super(message, cause);
     }
     public CryptoDataFileMissingException(String message) {
         super(message);
-    }
-    public CryptoDataFileMissingException(Throwable cause) {
-        super(cause);
     }
 }
