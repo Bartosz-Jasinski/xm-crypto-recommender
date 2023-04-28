@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.TreeSet;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,7 +35,7 @@ public class RecommenderController {
      * @return set of a cryptos with normalized prices calculated
      */
     @GetMapping("/comparision")
-    public TreeSet<CryptoNormalized> getCryptoComparision() {
-        return recommenderService.getCryptoComparision();
+    public Set<CryptoNormalized> getCryptoComparision() {
+        return recommenderService.getNormalizedCryptosSorted();
     }
 }
