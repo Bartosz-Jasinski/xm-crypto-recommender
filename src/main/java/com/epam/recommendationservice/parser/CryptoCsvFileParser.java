@@ -1,5 +1,6 @@
 package com.epam.recommendationservice.parser;
 
+import com.epam.recommendationservice.exception.CryptoDataFileMissingException;
 import com.epam.recommendationservice.model.Crypto;
 import com.opencsv.bean.CsvToBeanBuilder;
 import org.springframework.stereotype.Service;
@@ -14,14 +15,14 @@ public class CryptoCsvFileParser implements FileParser {
 
     @Override
     public List<Crypto> parse(File file) {
-        List<Crypto> cryptos = new ArrayList<>();
+        List<Crypto> cryptos;
         try {
             cryptos = new CsvToBeanBuilder<Crypto>(new FileReader(file))
                     .withType(Crypto.class)
                     .build()
                     .parse();
         } catch (FileNotFoundException e) {
-            System.out.println("error");
+            throw new CryptoDataFileMissingException(file.getName() + " for parsing not found.");
         }
 
         return cryptos;

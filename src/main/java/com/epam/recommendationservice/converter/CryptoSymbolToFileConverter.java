@@ -1,5 +1,6 @@
 package com.epam.recommendationservice.converter;
 
+import com.epam.recommendationservice.exception.CryptoDataFileMissingException;
 import com.epam.recommendationservice.service.SupportedCryptoValidationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class CryptoSymbolToFileConverter {
         try {
             return new File(ClassLoader.getSystemResource(path).toURI());
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new CryptoDataFileMissingException("No data file for crypto " + symbol + " found.", e);
         }
     }
 

@@ -1,5 +1,7 @@
 package com.epam.recommendationservice.service;
 
+import com.epam.recommendationservice.exception.CryptoDataFileMissingException;
+import com.epam.recommendationservice.exception.UnsupportedCryptoException;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,7 @@ import java.util.Set;
 @Service
 public class SupportedCryptoValidationService {
     public static final String FILENAME_SUFFIX = "_values.csv";
+    public static final String CRYPTO_DATA_PATH = "prices/";
     private Set<String> allowedCryptos;
 
     public Set<String> getAllowedCryptos() {
@@ -31,9 +34,9 @@ public class SupportedCryptoValidationService {
     private void fetchAllowedCryptos() {
         File pricesFolder;
         try {
-            pricesFolder = new File(ClassLoader.getSystemResource("prices/").toURI());
+            pricesFolder = new File(ClassLoader.getSystemResource(CRYPTO_DATA_PATH).toURI());
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            throw new CryptoDataFileMissingException("Wrong path to a directory with crypto data.", e);
         }
 
         allowedCryptos = new HashSet<>();
@@ -49,7 +52,7 @@ public class SupportedCryptoValidationService {
         }
 
         if (!allowedCryptos.contains(symbol)) {
-            throw new IllegalArgumentException("Crypto " + symbol + " not supported");
+            throw new UnsupportedCryptoException("Crypto " + symbol + " not supported");
         }
     }
 }
