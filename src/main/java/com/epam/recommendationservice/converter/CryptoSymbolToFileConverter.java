@@ -1,5 +1,7 @@
 package com.epam.recommendationservice.converter;
 
+import com.epam.recommendationservice.service.SupportedCryptoValidationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -11,15 +13,13 @@ import java.util.stream.Collectors;
  * Converter that uses crypto symbol to find and retrieve a corresponding data file from a resources.
  */
 @Service
+@RequiredArgsConstructor
 public class CryptoSymbolToFileConverter {
-    //TODO: move allowed cryptos validation to another class and to RecommenderController
-    private static final Set<String> ALLOWED_CRYPTOS = Set.of("BTC", "DOGE", "ETH", "LTC", "XRP");
+    private final SupportedCryptoValidationService supportedCryptoValidationService;
     private static final String FILE_PATH_TEMPLATE = "prices/%s_values.csv";
 
     public File convert(String symbol) {
-        if (!ALLOWED_CRYPTOS.contains(symbol)) {
-            throw new IllegalArgumentException();
-        }
+        supportedCryptoValidationService.validateSupportedCrypto(symbol);
 
         String path = String.format(FILE_PATH_TEMPLATE, symbol);
         try {
@@ -30,7 +30,7 @@ public class CryptoSymbolToFileConverter {
     }
 
     public Set<File> convertAllFiles() {
-        return ALLOWED_CRYPTOS.stream()
+        return supportedCryptoValidationService.getAllowedCryptos().stream()
                 .map(this::convert)
                 .collect(Collectors.toSet());
     }
